@@ -19,6 +19,6 @@ One or Two Parameter Events
 
 When using events with parameters you need to specifiy the paramter types so that everything remains strongly typed.
 
-- to add an event listener for a zero parameter event call *MessageKit<Transform>.addObserver( eventType, handler )*
+- to add an event listener for a one parameter event call *MessageKit<Transform>.addObserver( eventType, handler )* (notice that the parameter type is Transform for this example)
 - post events by calling *MessageKit<Transform>.post( eventType, someTransform )*
 - don't forget to remove your event listeners with *MessageKit.removeObserver( handler )*!
