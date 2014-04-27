@@ -21,4 +21,4 @@ When using events with parameters you need to specifiy the paramter types so tha
 
 - to add an event listener for a one parameter event call *MessageKit&lt;Transform&gt;.addObserver( eventType, handler )* (notice that the parameter type is Transform for this example)
 - post events by calling *MessageKit&lt;Transform&gt;.post( eventType, someTransform )*
-- don't forget to remove your event listeners with *MessageKit.removeObserver( handler )*!
+- don't forget to remove your event listeners with *MessageKit&lt;Transform&gt;.removeObserver( handler )*!
