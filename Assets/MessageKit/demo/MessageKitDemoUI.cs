@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Prime31.MessageKit;
 
 
 // define your messageTypes (which are ints) preferably as const so they can be easily referenced
@@ -14,7 +15,12 @@ public class MessageTypes
 
 public class MessageKitDemoUI : MonoBehaviour
 {
-
+	void Start()
+	{
+		MessageKit<string>.addObserver( 0, null );
+		MessageKit<int>.addObserver( 0, null );
+		MessageKit<InteractiveCloth>.addObserver( 0, null );
+	}
 
 	void OnGUI()
 	{
