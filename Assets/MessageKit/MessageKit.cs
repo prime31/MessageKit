@@ -7,45 +7,22 @@ using System.Collections.Generic;
 
 namespace Prime31.MessageKit
 {
-	class MessageKitManager : MonoBehaviour
+	public static class MessageKitManager
 	{
 		// we store a list of any MessageKits that got created so that we can clear them out when a level loads
-		private List<IDictionary> _messageKitInstances = new List<IDictionary>();
+		private static List<IDictionary> _messageKitMessageTables = new List<IDictionary>();
 
 
-		private static MessageKitManager _instance;
-		public static MessageKitManager instance
+		public static void registerMessageKitInstance( IDictionary messageKitMessageTable )
 		{
-			get
-			{
-				if( !_instance )
-				{
-					_instance = FindObjectOfType( typeof( MessageKitManager ) ) as MessageKitManager;
-
-					if( !_instance )
-					{
-						var obj = new GameObject( "MessageKitManager" );
-						obj.hideFlags = HideFlags.HideAndDontSave;
-						DontDestroyOnLoad( obj );
-						_instance = obj.AddComponent<MessageKitManager>();
-					}
-				}
-
-				return _instance;
-			}
+			_messageKitMessageTables.Add( messageKitMessageTable );
 		}
 
 
-		public void registerMessageKitInstance( IDictionary messageKitInstance )
+		public static void clearAllMessageTables()
 		{
-			_messageKitInstances.Add( messageKitInstance );
-		}
-
-
-		void OnLevelWasLoaded( int level )
-		{
-			for( var i = 0; i <= _messageKitInstances.Count; i++ )
-				_messageKitInstances[i].Clear();
+			for( var i = 0; i <= _messageKitMessageTables.Count; i++ )
+				_messageKitMessageTables[i].Clear();
 		}
 
 	}
@@ -55,9 +32,10 @@ namespace Prime31.MessageKit
 	{
 		private static Dictionary<int,List<Action>> _messageTable = new Dictionary<int,List<Action>>();
 
+
 		static MessageKit()
 		{
-			MessageKitManager.instance.registerMessageKitInstance( _messageTable );
+			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
 
 
@@ -93,6 +71,19 @@ namespace Prime31.MessageKit
 			}
 		}
 
+
+		public static void clearMessageTable( int messageType )
+		{
+			if( _messageTable.ContainsKey( messageType ) )
+				_messageTable.Remove( messageType );
+		}
+
+
+		public static void clearMessageTable()
+		{
+			_messageTable.Clear();
+		}
+
 	}
 
 
@@ -103,7 +94,7 @@ namespace Prime31.MessageKit
 
 		static MessageKit()
 		{
-			MessageKitManager.instance.registerMessageKitInstance( _messageTable );
+			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
 
 
@@ -139,6 +130,19 @@ namespace Prime31.MessageKit
 			}
 		}
 
+
+		public static void clearMessageTable( int messageType )
+		{
+			if( _messageTable.ContainsKey( messageType ) )
+				_messageTable.Remove( messageType );
+		}
+
+
+		public static void clearMessageTable()
+		{
+			_messageTable.Clear();
+		}
+
 	}
 
 
@@ -149,7 +153,7 @@ namespace Prime31.MessageKit
 
 		static MessageKit()
 		{
-			MessageKitManager.instance.registerMessageKitInstance( _messageTable );
+			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
 
 
@@ -183,6 +187,19 @@ namespace Prime31.MessageKit
 				for( var i = 0; i < list.Count; i++ )
 					list[i]( firstParam, secondParam );
 			}
+		}
+
+
+		public static void clearMessageTable( int messageType )
+		{
+			if( _messageTable.ContainsKey( messageType ) )
+				_messageTable.Remove( messageType );
+		}
+
+
+		public static void clearMessageTable()
+		{
+			_messageTable.Clear();
 		}
 
 	}

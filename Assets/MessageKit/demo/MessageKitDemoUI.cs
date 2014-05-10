@@ -26,25 +26,19 @@ public class MessageKitDemoUI : MonoBehaviour
 	{
 		if( GUILayout.Button( "Add Observer (no params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Add" );
 			MessageKit.addObserver( MessageTypes.stuffHappened, stuffHappened );
-			Profiler.EndSample();
 		}
 
 
 		if( GUILayout.Button( "Fire (no params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Post" );
 			MessageKit.post( MessageTypes.stuffHappened );
-			Profiler.EndSample();
 		}
 
 
 		if( GUILayout.Button( "Remove Observer (no params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Remove" );
 			MessageKit.removeObserver( MessageTypes.stuffHappened, stuffHappened );
-			Profiler.EndSample();
 		}
 
 
@@ -52,25 +46,19 @@ public class MessageKitDemoUI : MonoBehaviour
 
 		if( GUILayout.Button( "Add Observer (two params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Add" );
 			MessageKit<string,GameObject>.addObserver( MessageTypes.twoParamsEvent, twoParamsEvent );
-			Profiler.EndSample();
 		}
 
 
 		if( GUILayout.Button( "Fire (two params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Post" );
 			MessageKit<string,GameObject>.post( MessageTypes.twoParamsEvent, "string param", gameObject );
-			Profiler.EndSample();
 		}
 
 
 		if( GUILayout.Button( "Remove Observer (two params)" ) )
 		{
-			Profiler.BeginSample( "MessageKit Remove" );
 			MessageKit<string,GameObject>.removeObserver( MessageTypes.twoParamsEvent, twoParamsEvent );
-			Profiler.EndSample();
 		}
 	}
 
