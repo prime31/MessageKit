@@ -15,13 +15,6 @@ public class MessageTypes
 
 public class MessageKitDemoUI : MonoBehaviour
 {
-	void Start()
-	{
-		MessageKit<string>.addObserver( 0, null );
-		MessageKit<int>.addObserver( 0, null );
-		MessageKit<InteractiveCloth>.addObserver( 0, null );
-	}
-
 	void OnGUI()
 	{
 		if( GUILayout.Button( "Add Observer (no params)" ) )
