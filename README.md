@@ -22,3 +22,9 @@ When using events with parameters you need to specifiy the paramter types so tha
 - to add an event listener for a one parameter event call *MessageKit&lt;Transform&gt;.addObserver( eventType, handler )* (notice that the parameter type is Transform for this example)
 - post events by calling *MessageKit&lt;Transform&gt;.post( eventType, someTransform )*
 - don't forget to remove your event listeners with *MessageKit&lt;Transform&gt;.removeObserver( handler )*!
+
+
+License
+-----
+
+[Attribution-NonCommercial-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode) with [simple explanation](http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US). You are free to use MessageKit in any and all games that you make. You cannot sell MessageKit directly or as part of a larger game asset.
