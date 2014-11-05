@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿// uncomment this line to enable the MessageKitManager. It provides a single clearAllMessageTables method that
+// will clear every single observer that was ever added
+//#define ENABLE_MESSAGE_KIT_MANAGER
+
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Prime31.MessageKit
 {
+#if ENABLE_MESSAGE_KIT_MANAGER
 	public static class MessageKitManager
 	{
 		// we store a list of any MessageKits that got created so that we can clear them out when a level loads
@@ -26,17 +31,19 @@ namespace Prime31.MessageKit
 		}
 
 	}
-
+#endif
 
 	public static class MessageKit
 	{
 		private static Dictionary<int,List<Action>> _messageTable = new Dictionary<int,List<Action>>();
 
 
+#if ENABLE_MESSAGE_KIT_MANAGER
 		static MessageKit()
 		{
 			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
+#endif
 
 
 		public static void addObserver( int messageType, Action handler )
@@ -66,7 +73,7 @@ namespace Prime31.MessageKit
 			if( _messageTable.ContainsKey( messageType ) )
 			{
 				var list = _messageTable[messageType];
-				for( var i = 0; i < list.Count; i++ )
+				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]();
 			}
 		}
@@ -92,10 +99,12 @@ namespace Prime31.MessageKit
 		private static Dictionary<int,List<Action<U>>> _messageTable = new Dictionary<int,List<Action<U>>>();
 
 
+#if ENABLE_MESSAGE_KIT_MANAGER
 		static MessageKit()
 		{
 			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
+#endif
 
 
 		public static void addObserver( int messageType, Action<U> handler )
@@ -125,7 +134,7 @@ namespace Prime31.MessageKit
 			if( _messageTable.ContainsKey( messageType ) )
 			{
 				var list = _messageTable[messageType];
-				for( var i = 0; i < list.Count; i++ )
+				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]( param );
 			}
 		}
@@ -151,10 +160,12 @@ namespace Prime31.MessageKit
 		private static Dictionary<int,List<Action<U,V>>> _messageTable = new Dictionary<int,List<Action<U,V>>>();
 
 
+#if ENABLE_MESSAGE_KIT_MANAGER
 		static MessageKit()
 		{
 			MessageKitManager.registerMessageKitInstance( _messageTable );
 		}
+#endif
 
 
 		public static void addObserver( int messageType, Action<U,V> handler )
@@ -184,7 +195,7 @@ namespace Prime31.MessageKit
 			if( _messageTable.ContainsKey( messageType ) )
 			{
 				var list = _messageTable[messageType];
-				for( var i = 0; i < list.Count; i++ )
+				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]( firstParam, secondParam );
 			}
 		}
