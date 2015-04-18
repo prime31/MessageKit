@@ -1,7 +1,7 @@
 MessageKit
 ==========
 
-Decoupled message sending system meant as a replacement for SendMessage and its variants. MessageKit comes with the ability to send zero, one or two paramter messages. The keys for messages are ints. Most message systems use strings but it has been my experience that folks are less likely to define their keys as consts when dealing with strings so it ends up creating hard to debug issues when a string is mistyped. By using ints for keys the hope is that MessageKit users will define their keys as *const ints* so that they get the benefit of code completion and end up with easy to read code.
+Decoupled message sending system meant as a replacement for SendMessage and its variants. MessageKit comes with the ability to send zero, one or two parameter messages. The keys for messages are ints. Most message systems use strings but it has been my experience that folks are less likely to define their keys as consts when dealing with strings so it ends up creating hard to debug issues when a string is mistyped. By using ints for keys the hope is that MessageKit users will define their keys as *const ints* so that they get the benefit of code completion and end up with easy to read code.
 
 
 
