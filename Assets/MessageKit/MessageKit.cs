@@ -48,10 +48,13 @@ namespace Prime31.MessageKit
 
 		public static void addObserver( int messageType, Action handler )
 		{
-			if( !_messageTable.ContainsKey( messageType ) )
-				_messageTable.Add( messageType, new List<Action>() );
+			List<Action> list = null;
+			if( !_messageTable.TryGetValue( messageType, out list ) )
+			{
+				list = new List<Action>();
+				_messageTable.Add( messageType, list );
+			}
 
-			var list = _messageTable[messageType];
 			if( !list.Contains( handler ) )
 				_messageTable[messageType].Add( handler );
 		}
@@ -59,20 +62,20 @@ namespace Prime31.MessageKit
 
 		public static void removeObserver( int messageType, Action handler )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				if( list.Contains( handler ) )
 					list.Remove( handler );
 			}
 		}
 
-
+		
 		public static void post( int messageType )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]();
 			}
@@ -90,7 +93,6 @@ namespace Prime31.MessageKit
 		{
 			_messageTable.Clear();
 		}
-
 	}
 
 
@@ -109,10 +111,13 @@ namespace Prime31.MessageKit
 
 		public static void addObserver( int messageType, Action<U> handler )
 		{
-			if( !_messageTable.ContainsKey( messageType ) )
-				_messageTable.Add( messageType, new List<Action<U>>() );
+			List<Action<U>> list = null;
+			if( !_messageTable.TryGetValue( messageType, out list ) )
+			{
+				list = new List<Action<U>>();
+				_messageTable.Add( messageType, list );
+			}
 
-			var list = _messageTable[messageType];
 			if( !list.Contains( handler ) )
 				_messageTable[messageType].Add( handler );
 		}
@@ -120,9 +125,9 @@ namespace Prime31.MessageKit
 
 		public static void removeObserver( int messageType, Action<U> handler )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action<U>> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				if( list.Contains( handler ) )
 					list.Remove( handler );
 			}
@@ -131,9 +136,9 @@ namespace Prime31.MessageKit
 
 		public static void post( int messageType, U param )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action<U>> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]( param );
 			}
@@ -151,7 +156,6 @@ namespace Prime31.MessageKit
 		{
 			_messageTable.Clear();
 		}
-
 	}
 
 
@@ -170,10 +174,13 @@ namespace Prime31.MessageKit
 
 		public static void addObserver( int messageType, Action<U,V> handler )
 		{
-			if( !_messageTable.ContainsKey( messageType ) )
-				_messageTable.Add( messageType, new List<Action<U,V>>() );
+			List<Action<U,V>> list = null;
+			if( !_messageTable.TryGetValue( messageType, out list ) )
+			{
+				list = new List<Action<U,V>>();
+				_messageTable.Add( messageType, list );
+			}
 
-			var list = _messageTable[messageType];
 			if( !list.Contains( handler ) )
 				_messageTable[messageType].Add( handler );
 		}
@@ -181,9 +188,9 @@ namespace Prime31.MessageKit
 
 		public static void removeObserver( int messageType, Action<U,V> handler )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action<U,V>> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				if( list.Contains( handler ) )
 					list.Remove( handler );
 			}
@@ -192,9 +199,9 @@ namespace Prime31.MessageKit
 
 		public static void post( int messageType, U firstParam, V secondParam )
 		{
-			if( _messageTable.ContainsKey( messageType ) )
+			List<Action<U,V>> list = null;
+			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
-				var list = _messageTable[messageType];
 				for( var i = list.Count - 1; i >= 0; i-- )
 					list[i]( firstParam, secondParam );
 			}
@@ -212,6 +219,5 @@ namespace Prime31.MessageKit
 		{
 			_messageTable.Clear();
 		}
-
 	}
 }
