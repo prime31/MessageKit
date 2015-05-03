@@ -11,28 +11,10 @@ using System.Collections.Generic;
 
 namespace Prime31.MessageKit
 {
-#if ENABLE_MESSAGE_KIT_MANAGER
-	public static class MessageKitManager
-	{
-		// we store a list of any MessageKits that got created so that we can clear them out when a level loads
-		private static List<IDictionary> _messageKitMessageTables = new List<IDictionary>();
-
-
-		public static void registerMessageKitInstance( IDictionary messageKitMessageTable )
-		{
-			_messageKitMessageTables.Add( messageKitMessageTable );
-		}
-
-
-		public static void clearAllMessageTables()
-		{
-			for( var i = 0; i <= _messageKitMessageTables.Count; i++ )
-				_messageKitMessageTables[i].Clear();
-		}
-
-	}
-#endif
-
+	/// <summary>
+	/// think of MessageKit as a safe, fast replacement for SendMessage. Decoupled messages identified by an int. It is recommended to define
+	/// your messages as const so they can be easily referenced and identified when you read your code (see the demo scene for an example)
+	/// </summary>
 	public static class MessageKit
 	{
 		private static Dictionary<int,List<Action>> _messageTable = new Dictionary<int,List<Action>>();
@@ -220,4 +202,26 @@ namespace Prime31.MessageKit
 			_messageTable.Clear();
 		}
 	}
+
+
+#if ENABLE_MESSAGE_KIT_MANAGER
+	public static class MessageKitManager
+	{
+		// we store a list of any MessageKits that got created so that we can clear them out when a level loads
+		private static List<IDictionary> _messageKitMessageTables = new List<IDictionary>();
+
+
+		public static void registerMessageKitInstance( IDictionary messageKitMessageTable )
+		{
+			_messageKitMessageTables.Add( messageKitMessageTable );
+		}
+
+
+		public static void clearAllMessageTables()
+		{
+			for( var i = 0; i <= _messageKitMessageTables.Count; i++ )
+				_messageKitMessageTables[i].Clear();
+		}
+	}
+#endif
 }
