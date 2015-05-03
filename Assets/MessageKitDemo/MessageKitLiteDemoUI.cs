@@ -4,25 +4,34 @@ using Prime31.MessageKitLite;
 
 
 
-public class MessageKitLiteDemoUI : MonoBehaviour, MessageReceiver<int>, MessageReceiver<GameObject>
+// define your messageTypes (which are ints) preferably as const so they can be easily referenced
+// and will benefit from code completion
+public class LiteMessageTypes
+{
+	public const int noParamMessage = 0;
+	public const int gameObjectParamMessage = 1;
+}
+
+
+public class MessageKitLiteDemoUI : MonoBehaviour, MessageReceiver, MessageReceiver<GameObject>
 {
 	void OnGUI()
 	{
-		if( GUILayout.Button( "Add Observer (int param)" ) )
+		if( GUILayout.Button( "Add Observer (no params)" ) )
 		{
-			MessageKitLite.addObserver<int>( this );
+			MessageKitLite.addObserver( LiteMessageTypes.noParamMessage, this );
 		}
 
 
-		if( GUILayout.Button( "Fire (int param)" ) )
+		if( GUILayout.Button( "Fire (no params)" ) )
 		{
-			MessageKitLite.post( 4 );
+			MessageKitLite.post( LiteMessageTypes.noParamMessage );
 		}
 
 
-		if( GUILayout.Button( "Remove Observer (int param)" ) )
+		if( GUILayout.Button( "Remove Observer (no params)" ) )
 		{
-			MessageKitLite.removeObserver<int>( this );
+			MessageKitLite.removeObserver( LiteMessageTypes.noParamMessage, this );
 		}
 
 
@@ -30,32 +39,32 @@ public class MessageKitLiteDemoUI : MonoBehaviour, MessageReceiver<int>, Message
 
 		if( GUILayout.Button( "Add Observer (GameObject param)" ) )
 		{
-			MessageKitLite.addObserver<GameObject>( this );
+			MessageKitLite<GameObject>.addObserver( LiteMessageTypes.gameObjectParamMessage, this );
 		}
 
 
 		if( GUILayout.Button( "Fire (GameObject param)" ) )
 		{
-			MessageKitLite.post( gameObject );
+			MessageKitLite<GameObject>.post( LiteMessageTypes.gameObjectParamMessage, gameObject );
 		}
 
 
 		if( GUILayout.Button( "Remove Observer (GameObject param)" ) )
 		{
-			MessageKitLite.removeObserver<GameObject>( this );
+			MessageKitLite<GameObject>.removeObserver( LiteMessageTypes.gameObjectParamMessage, this );
 		}
 	}
 
 
-	public void onMessageReceived( int message )
+	public void onMessageReceived( int messageType )
 	{
-		Debug.Log( "onMessageReceived: " + message );
+		Debug.Log( "onMessageReceived: " + messageType );
 	}
 
 
-	public void onMessageReceived( GameObject message )
+	public void onMessageReceived( int messageType, GameObject param )
 	{
-		Debug.Log( "onMessageReceived: " + message );
+		Debug.Log( "onMessageReceived: " + param.name );
 	}
 
 }
