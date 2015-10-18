@@ -219,7 +219,7 @@ namespace Prime31.MessageKit
 
 		public static void clearAllMessageTables()
 		{
-			for( var i = 0; i <= _messageKitMessageTables.Count; i++ )
+			for( var i = 0; i < _messageKitMessageTables.Count; i++ )
 				_messageKitMessageTables[i].Clear();
 		}
 	}
