@@ -159,24 +159,25 @@ namespace Prime31.MessageKit
 			_messageTable.Clear();
 		}
 
-		public static void LogObservers(int messageType)
+
+		public static void logObservers( int messageType )
 		{
-			if (_messageTable.ContainsKey(messageType) == false || _messageTable[messageType].Count == 0)
+			if( _messageTable.ContainsKey( messageType ) == false || _messageTable[messageType].Count == 0 )
 			{
-				Debug.Log("MessageType: " + messageType + " has no observers");
+				Debug.Log( "MessageType: " + messageType + " has no observers" );
 				return;
 			}
 
 			var sb = new StringBuilder();
-			sb.AppendLine("MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers");
+			sb.AppendLine( "MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers" );
 
-			for (var i = 0; i < _messageTable[messageType].Count; i++)
+			for( var i = 0; i < _messageTable[messageType].Count; i++ )
 			{
-				Action<U> action = _messageTable[messageType][i];
-				sb.AppendLine("Target: " + action.Target + "\t Method: " + action.Method);
+				var action = _messageTable[messageType][i];
+				sb.AppendLine( "Target: " + action.Target + "\t Method: " + action.Method );
 			}
 
-			Debug.Log(sb.ToString());
+			Debug.Log( sb.ToString() );
 		}
 	}
 
@@ -242,18 +243,19 @@ namespace Prime31.MessageKit
 			_messageTable.Clear();
 		}
 
-		public static void LogObservers( int messageType )
+
+		public static void logObservers( int messageType )
 		{
-			if ( _messageTable.ContainsKey( messageType ) == false || _messageTable[messageType].Count == 0 )
+			if( _messageTable.ContainsKey( messageType ) == false || _messageTable[messageType].Count == 0 )
 			{
-				Debug.Log("MessageType: " + messageType + " has no observers");
+				Debug.Log( "MessageType: " + messageType + " has no observers" );
 				return;
 			}
 
 			var sb = new StringBuilder();
 			sb.AppendLine( "MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers" );
 
-			for ( var i = 0; i < _messageTable[messageType].Count; i++ )
+			for( var i = 0; i < _messageTable[messageType].Count; i++ )
 			{
 				Action<U,V> action = _messageTable[messageType][i];
 				sb.AppendLine( "Target: " + action.Target + "\t Method: " + action.Method );

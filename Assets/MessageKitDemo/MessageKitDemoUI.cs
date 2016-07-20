@@ -60,7 +60,7 @@ public class MessageKitDemoUI : MonoBehaviour
 
 		if( GUILayout.Button( "Debug.Log Observer (two params)" ) )
 		{
-			MessageKit<string, GameObject>.LogObservers( MessageTypes.twoParamsEvent );
+			MessageKit<string, GameObject>.logObservers( MessageTypes.twoParamsEvent );
 		}
 	}
 
