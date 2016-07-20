@@ -34,6 +34,10 @@ public class MessageKitDemoUI : MonoBehaviour
 			MessageKit.removeObserver( MessageTypes.stuffHappened, stuffHappened );
 		}
 
+		if ( GUILayout.Button( "Debug.Log Observer (no params)" ) )
+		{
+			MessageKit.LogObservers( MessageTypes.stuffHappened );
+		}
 
 		GUILayout.Space( 50 );
 
@@ -52,6 +56,11 @@ public class MessageKitDemoUI : MonoBehaviour
 		if( GUILayout.Button( "Remove Observer (two params)" ) )
 		{
 			MessageKit<string,GameObject>.removeObserver( MessageTypes.twoParamsEvent, twoParamsEvent );
+		}
+
+		if( GUILayout.Button( "Debug.Log Observer (two params)" ) )
+		{
+			MessageKit<string, GameObject>.LogObservers( MessageTypes.twoParamsEvent );
 		}
 	}
 

@@ -6,7 +6,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Text;
 
 
 namespace Prime31.MessageKit
@@ -75,6 +75,26 @@ namespace Prime31.MessageKit
 		{
 			_messageTable.Clear();
 		}
+
+		public static void LogObservers(int messageType)
+		{
+			if (_messageTable.ContainsKey(messageType) == false || _messageTable[messageType].Count == 0)
+			{
+				Debug.Log("MessageType: " + messageType + " has no observers");
+				return;
+			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine("MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers");
+
+			for (var i = 0; i < _messageTable[messageType].Count; i++)
+			{
+				Action action = _messageTable[messageType][i];
+				sb.AppendLine("Target: " + action.Target + "\t Method: " + action.Method);
+			}
+
+			Debug.Log(sb.ToString());
+		}
 	}
 
 
@@ -138,6 +158,26 @@ namespace Prime31.MessageKit
 		{
 			_messageTable.Clear();
 		}
+
+		public static void LogObservers(int messageType)
+		{
+			if (_messageTable.ContainsKey(messageType) == false || _messageTable[messageType].Count == 0)
+			{
+				Debug.Log("MessageType: " + messageType + " has no observers");
+				return;
+			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine("MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers");
+
+			for (var i = 0; i < _messageTable[messageType].Count; i++)
+			{
+				Action<U> action = _messageTable[messageType][i];
+				sb.AppendLine("Target: " + action.Target + "\t Method: " + action.Method);
+			}
+
+			Debug.Log(sb.ToString());
+		}
 	}
 
 
@@ -200,6 +240,26 @@ namespace Prime31.MessageKit
 		public static void clearMessageTable()
 		{
 			_messageTable.Clear();
+		}
+
+		public static void LogObservers( int messageType )
+		{
+			if ( _messageTable.ContainsKey( messageType ) == false || _messageTable[messageType].Count == 0 )
+			{
+				Debug.Log("MessageType: " + messageType + " has no observers");
+				return;
+			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine( "MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers" );
+
+			for ( var i = 0; i < _messageTable[messageType].Count; i++ )
+			{
+				Action<U,V> action = _messageTable[messageType][i];
+				sb.AppendLine( "Target: " + action.Target + "\t Method: " + action.Method );
+			}
+
+			Debug.Log( sb.ToString() );
 		}
 	}
 
