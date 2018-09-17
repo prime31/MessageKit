@@ -17,7 +17,7 @@ namespace Prime31.MessageKit
 	/// </summary>
 	public static class MessageKit
 	{
-		private static Dictionary<int,List<Action>> _messageTable = new Dictionary<int,List<Action>>();
+		private static Dictionary<int, List<Action>> _messageTable = new Dictionary<int, List<Action>>();
 
 
 #if ENABLE_MESSAGE_KIT_MANAGER
@@ -52,7 +52,7 @@ namespace Prime31.MessageKit
 			}
 		}
 
-		
+
 		public static void post( int messageType )
 		{
 			List<Action> list = null;
@@ -76,31 +76,31 @@ namespace Prime31.MessageKit
 			_messageTable.Clear();
 		}
 
-		public static void LogObservers(int messageType)
+		public static void LogObservers( int messageType )
 		{
-			if (_messageTable.ContainsKey(messageType) == false || _messageTable[messageType].Count == 0)
+			if( _messageTable.ContainsKey( messageType ) == false || _messageTable[messageType].Count == 0 )
 			{
-				Debug.Log("MessageType: " + messageType + " has no observers");
+				Debug.Log( "MessageType: " + messageType + " has no observers" );
 				return;
 			}
 
 			var sb = new StringBuilder();
-			sb.AppendLine("MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers");
+			sb.AppendLine( "MessageType: " + messageType + " has " + _messageTable[messageType].Count + " Observers" );
 
-			for (var i = 0; i < _messageTable[messageType].Count; i++)
+			for( var i = 0; i < _messageTable[messageType].Count; i++ )
 			{
 				Action action = _messageTable[messageType][i];
-				sb.AppendLine("Target: " + action.Target + "\t Method: " + action.Method);
+				sb.AppendLine( "Target: " + action.Target + "\t Method: " + action.Method );
 			}
 
-			Debug.Log(sb.ToString());
+			Debug.Log( sb.ToString() );
 		}
 	}
 
 
 	public static class MessageKit<U>
 	{
-		private static Dictionary<int,List<Action<U>>> _messageTable = new Dictionary<int,List<Action<U>>>();
+		private static Dictionary<int, List<Action<U>>> _messageTable = new Dictionary<int, List<Action<U>>>();
 
 
 #if ENABLE_MESSAGE_KIT_MANAGER
@@ -182,9 +182,9 @@ namespace Prime31.MessageKit
 	}
 
 
-	public static class MessageKit<U,V>
+	public static class MessageKit<U, V>
 	{
-		private static Dictionary<int,List<Action<U,V>>> _messageTable = new Dictionary<int,List<Action<U,V>>>();
+		private static Dictionary<int, List<Action<U, V>>> _messageTable = new Dictionary<int, List<Action<U, V>>>();
 
 
 #if ENABLE_MESSAGE_KIT_MANAGER
@@ -195,12 +195,12 @@ namespace Prime31.MessageKit
 #endif
 
 
-		public static void addObserver( int messageType, Action<U,V> handler )
+		public static void addObserver( int messageType, Action<U, V> handler )
 		{
-			List<Action<U,V>> list = null;
+			List<Action<U, V>> list = null;
 			if( !_messageTable.TryGetValue( messageType, out list ) )
 			{
-				list = new List<Action<U,V>>();
+				list = new List<Action<U, V>>();
 				_messageTable.Add( messageType, list );
 			}
 
@@ -209,9 +209,9 @@ namespace Prime31.MessageKit
 		}
 
 
-		public static void removeObserver( int messageType, Action<U,V> handler )
+		public static void removeObserver( int messageType, Action<U, V> handler )
 		{
-			List<Action<U,V>> list = null;
+			List<Action<U, V>> list = null;
 			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
 				if( list.Contains( handler ) )
@@ -222,7 +222,7 @@ namespace Prime31.MessageKit
 
 		public static void post( int messageType, U firstParam, V secondParam )
 		{
-			List<Action<U,V>> list = null;
+			List<Action<U, V>> list = null;
 			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
 				for( var i = list.Count - 1; i >= 0; i-- )
@@ -257,7 +257,7 @@ namespace Prime31.MessageKit
 
 			for( var i = 0; i < _messageTable[messageType].Count; i++ )
 			{
-				Action<U,V> action = _messageTable[messageType][i];
+				Action<U, V> action = _messageTable[messageType][i];
 				sb.AppendLine( "Target: " + action.Target + "\t Method: " + action.Method );
 			}
 

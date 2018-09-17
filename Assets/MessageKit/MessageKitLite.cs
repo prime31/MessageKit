@@ -16,7 +16,7 @@ namespace Prime31.MessageKitLite
 		void onMessageReceived( int messageType, T message );
 	}
 
-	public interface MessageReceiver<T,U>
+	public interface MessageReceiver<T, U>
 	{
 		void onMessageReceived( int messageType, T message, U other );
 	}
@@ -33,7 +33,7 @@ namespace Prime31.MessageKitLite
 	/// </summary>
 	public static class MessageKitLite
 	{
-		private static Dictionary<int,List<MessageReceiver>> _messageTable = new Dictionary<int,List<MessageReceiver>>();
+		private static Dictionary<int, List<MessageReceiver>> _messageTable = new Dictionary<int, List<MessageReceiver>>();
 
 
 		public static void addObserver( int messageType, MessageReceiver handler )
@@ -48,7 +48,7 @@ namespace Prime31.MessageKitLite
 			if( !list.Contains( handler ) )
 				_messageTable[messageType].Add( handler );
 		}
-			
+
 
 		public static void removeObserver( int messageType, MessageReceiver handler )
 		{
@@ -88,7 +88,7 @@ namespace Prime31.MessageKitLite
 
 	public static class MessageKitLite<U>
 	{
-		private static Dictionary<int,List<MessageReceiver<U>>> _messageTable = new Dictionary<int,List<MessageReceiver<U>>>();
+		private static Dictionary<int, List<MessageReceiver<U>>> _messageTable = new Dictionary<int, List<MessageReceiver<U>>>();
 
 
 		public static void addObserver( int messageType, MessageReceiver<U> handler )
@@ -141,17 +141,17 @@ namespace Prime31.MessageKitLite
 	}
 
 
-	public static class MessageKitLite<U,V>
+	public static class MessageKitLite<U, V>
 	{
-		private static Dictionary<int,List<MessageReceiver<U,V>>> _messageTable = new Dictionary<int,List<MessageReceiver<U,V>>>();
+		private static Dictionary<int, List<MessageReceiver<U, V>>> _messageTable = new Dictionary<int, List<MessageReceiver<U, V>>>();
 
 
-		public static void addObserver( int messageType, MessageReceiver<U,V> handler )
+		public static void addObserver( int messageType, MessageReceiver<U, V> handler )
 		{
-			List<MessageReceiver<U,V>> list = null;
+			List<MessageReceiver<U, V>> list = null;
 			if( !_messageTable.TryGetValue( messageType, out list ) )
 			{
-				list = new List<MessageReceiver<U,V>>();
+				list = new List<MessageReceiver<U, V>>();
 				_messageTable.Add( messageType, list );
 			}
 
@@ -160,9 +160,9 @@ namespace Prime31.MessageKitLite
 		}
 
 
-		public static void removeObserver( int messageType, MessageReceiver<U,V> handler )
+		public static void removeObserver( int messageType, MessageReceiver<U, V> handler )
 		{
-			List<MessageReceiver<U,V>> list = null;
+			List<MessageReceiver<U, V>> list = null;
 			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
 				if( list.Contains( handler ) )
@@ -173,7 +173,7 @@ namespace Prime31.MessageKitLite
 
 		public static void post( int messageType, U firstParam, V secondParam )
 		{
-			List<MessageReceiver<U,V>> list = null;
+			List<MessageReceiver<U, V>> list = null;
 			if( _messageTable.TryGetValue( messageType, out list ) )
 			{
 				for( var i = list.Count - 1; i >= 0; i-- )
@@ -194,5 +194,5 @@ namespace Prime31.MessageKitLite
 			_messageTable.Clear();
 		}
 	}
-		
+
 }
